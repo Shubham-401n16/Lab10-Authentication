@@ -3,34 +3,54 @@
 const supergoose = require('@code-fellows/supergoose');
 
 const Model = require('../lib/models/model.js');
-const usersSchema = require('../lib/models/user-schema.js');
+const schema = require('../lib/models/user-schema.js');
 
-const UsersModel = new Model(usersSchema);
-
-beforeAll(async () => {
-  await UsersModel.create({
-    "username":"Test",
-    "password":"Password"
-  });
-});
+const UserModel = new Model(schema);
 
 describe('Testing Model', () => {
   it('can create users', async () => {
-    let test = await UsersModel.create({
-      "username":"Test",
-      "password":"Password",
-      "fname":'Positive',
-      "lname":'Too'
+    let user = await UserModel.create({
+      "username":"Shubham",
+      "lname":"lastname",
+      "fname":"firstname",
+      "password":"Password"  
     });
     
-    expect(test.username).toStrictEqual('Test');
-    expect(test.fname).toStrictEqual('Positive');
-    expect(test.lname).toStrictEqual('Too');
+    expect(user.username).toStrictEqual('Shubham');
+    expect(user.lname).toStrictEqual('lastname');
+    expect(user.fname).toStrictEqual('firstname');
   });
 
   it('can read all users', async () => {
-    let all = await UsersModel.read();
-    expect(all.length).toStrictEqual(1);
+    let allUsers = await UserModel.read();
+    expect(allUsers.length).toStrictEqual(1);
+  });
+  it('can update a user', async () => {
+    let user = await UserModel.readByQuery({'username':'Shubham'});
+
+console.log(user);
+    let newRecord = {
+      "username": "Updated",
+      "lname":"newlastname",
+      "fname":"newfirstname",
+      "paassword": "Password"
+    }
+    console.log('New User =',newRecord);
+
+    let updated = await UserModel.update(user[0]._id, newRecord);
+    console.log('updatedRecrd =' + updated);
+
+    expect(updated[0].username).toStrictEqual('Updated');
+    expect(updated[0].lname).toEqual('newlastname');
+    expect(updated[0].fname).toEqual('newfirstname');
+  });
+
+  it('can delete a user', async () => {
+    let user = await UserModel.readByQuery({'username':'Updated'});
+    let id = user[0]._id;
+    console.log('userId='+id);
+    let deleted = await UserModel.delete(id);
+    expect(deleted).toStrictEqual(id);
   });
 
 });
