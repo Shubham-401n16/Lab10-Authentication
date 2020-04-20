@@ -1,0 +1,37 @@
+{
+  "name": "Lab10-Authentication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint": "eslint **/.js",
+    "test": "jest --coverage --verbose",
+    "test-watch": "jest --watchAll --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shubham-401n16/Lab10-Authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shubham-401n16/Lab10-Authentication/issues"
+  },
+  "homepage": "https://github.com/Shubham-401n16/Lab10-Authentication#readme",
+  "dependencies": {
+    "@code-fellows/supergoose": "^1.0.2",
+    "base-64": "^0.1.0",
+    "bcrypt": "^4.0.1",
+    "express-swagger-generator": "^1.1.17",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^25.3.0",
+    "mongoose": "^5.9.9",
+    "morgan": "^1.10.0"
+  }
+}
