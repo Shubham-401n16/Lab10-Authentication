@@ -1,5 +1,5 @@
 const generateSwagger =(app) => {
-    //const expressSwagger = require('express-swagger-generator')(app);
+    const expressSwagger = require('express-swagger-generator')(app);
     
     let options = {
         swaggerDefinition: {
