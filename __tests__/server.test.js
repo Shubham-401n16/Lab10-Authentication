@@ -20,20 +20,38 @@ describe('happy path', () => {
         let response = await mockRequest.post('/signup').send({
             username: 'bUser',
             password: 'bPass',
-            fname: 'Bill',
-            lname: 'Biggs',
+            email:'bUser@test.com'
         });
 
-        expect(response.status).toBe(200);
-
-        expect(response.body._id).toBeDefined();
-
-        expect(response.body.password).toBeDefined();
-        expect(response.body.password).not.toBe('bPass');
+        expect(response.status).toBe(201);
+        //expect(response.body.username).toStrictEqual('bUser')
+        //expect(response.body.email).toStrictEqual('bUser@test.com')
     });
+
+    it('cannot  create existing user', async () => {
+      let response = await mockRequest.post('/signup').send({
+          username: 'Test',
+          password: 'bPass',
+      });
+
+      expect(response.status).toBe(500);
+      //expect(response.body.message).toStrictEqual('Username has to be unique');
+  });
 
     it('valid user can signin', async () => {
         let response = await mockRequest.post('/signin').auth('Test:Password');
-        expect(response.text).toStrictEqual('found!');
+        expect(response.body.token).toBeTruthy();
       });
+
+});
+
+describe('user endpoint', () => {
+  it('authorizes users via token', async () => {
+    let userData = await mockRequest.post('/signin').auth('Test:Password');
+    let token = userData.body.token;
+  
+    let response = await mockRequest.get('/users').set('Authorization', `Bearer ${token}`);
+  
+    expect(response.body.user).toStrictEqual('Test');
+  });
 });

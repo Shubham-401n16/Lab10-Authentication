@@ -1,6 +1,6 @@
-# Lab10-Authentication
+# Lab13-Bearer Authorization
 
-## Authentication
+## Bearer Authorization
 
 ### Author: Shubham Majumdar
 
