@@ -1,0 +1,14 @@
+[
+    {
+        "role": "admin",
+        "capabilities": ["superuser"]
+    },
+    {
+        "role": "editor",
+        "capabilities": ["read", "update"]
+    },
+    {
+        "role": "user",
+        "capabilities": ["read"]
+    }
+]
